@@ -171,8 +171,40 @@ function renderNewListItem(newItem) {
   li.dataset.item = newItem.item;
   li.setAttribute("draggable", "true");
 
-  li.innerHTML = `
+  //create an array of icons with their names
+  //if the item matches the name of the item in the array then
+  //display the icon with it
+  
+  
+  const groceryEmojiMap = {
+  milk: "🥛",
+  eggs: "🥚",
+  cheese: "🧀",
+  bread: "🍞",
+  rice: "🍚",
+  pasta: "🍝",
+  apples: "🍎",
+  bananas: "🍌",
+  tomatoes: "🍅",
+  onions: "🧅",
+  chicken: "🍗",
+  fish: "🐟",
+  cereal: "🥣",
+  "peanut butter": "🥜",
+  "cooking oil": "🫒",
+  "ice cream": "🍨",
+  pizza: "🍕",
+  "toilet paper": "🧻",
+  "dish soap": "🧼"
+}
+
+
+const emoji = groceryEmojiMap[newItem.item] || "🛒"
+const emojiItem = Object.keys(groceryEmojiMap).find
+  
+li.innerHTML = `
     <input type="checkbox" class="item-checkbox" data-id="${newItem._id}">
+    <span class"emoji">${emoji}</span>
     <label class="item-details">${newItem.item}</label>
     <span class="item-info">${newItem.quantity}</span>
     <i class="fas fa-pencil-alt edit-icon"></i>`;
