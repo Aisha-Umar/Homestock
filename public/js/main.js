@@ -537,6 +537,7 @@ if(moveToGroceryBtn) {
 }
  
 //=============================== LOGOUT ================================//
+
 document.querySelector('.logout')?.addEventListener("click", async () => {
   await fetch("/logout", {
     method: "POST",
@@ -545,3 +546,17 @@ document.querySelector('.logout')?.addEventListener("click", async () => {
 
   window.location.href = "/login";
 });
+
+//============================= GENERATE CODE ============================//
+
+
+function generateFamilyCode(length = 6){
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+  let result = ''
+  for(let i=0; i < 6; i++){
+   result += characters.charAt(Math.floor(Math.random() * characters.length))
+  }
+  return result
+}
+
+
