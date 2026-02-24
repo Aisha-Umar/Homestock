@@ -1008,3 +1008,33 @@ body {
         background-color: rgba(61, 171, 133, 0.1); /* Subtle green tint on hover */
     }
 }
+
+
+/* ............ generate code button and heading .............*/
+
+.sharing{
+     padding:0 1rem;
+}
+
+.sharing h2 {
+  font-size: 0.95rem;
+  margin: 0 0 0.75rem 0;
+  color: #2e7d32; /* HomeStock green */
+  font-weight: 600;
+}
+
+.sharing button {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sharing button:hover {
+  background-color: #43a047;
+}

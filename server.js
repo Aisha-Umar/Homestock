@@ -59,6 +59,8 @@ async function start() {
     // Connect simply
     await mongoose.connect(uri);
     console.log('✅ Connected to MongoDB (GroceriDB)');
+    console.log("Connected DB:", mongoose.connection.name);
+
 
     // 2. Start Server
     const server = app.listen(PORT, () => {
