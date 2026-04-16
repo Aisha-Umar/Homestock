@@ -2,38 +2,7 @@ const Grocery = require("../models/item.js")
 const User = require("../models/user.js")
 const Pantry = require("../models/pantry.js")
 const { request } = require("express")
-
-// Emoji mapping for grocery items
-const groceryEmojiMap = {
-  milk: "🥛",
-  eggs: "🥚",
-  cheese: "🧀",
-  bread: "🍞",
-  rice: "🍚",
-  pasta: "🍝",
-  apples: "🍎",
-  bananas: "🍌",
-  tomatoes: "🍅",
-  onions: "🧅",
-  chicken: "🍗",
-  fish: "🐟",
-  cereal: "🥣",
-  "peanut butter": "🥜",
-  "cooking oil": "🫒",
-  "ice cream": "🍨",
-  pizza: "🍕",
-  "toilet paper": "🧻",
-  "dish soap": "🧼",
-  "whole milk": "🥛",
-  garlic: "🧄",
-  ginger: "🫚",
-  beef: "🥩"
-}
-
-// Helper function to get emoji for an item
-function getEmojiForItem(itemName) {
-  return groceryEmojiMap[itemName.toLowerCase()] || "🛒"
-}
+const { getEmojiForItem } = require("../utils/emojiMap")
 
 //Get landing page
 exports.getLanding = async(req, res) => {
