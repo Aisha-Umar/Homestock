@@ -10,6 +10,10 @@ const grocerySchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  emoji: {
+    type: String,
+    default: "🛒"
+  },
   order: {
     type: Number,
     default: 0, // so new items appear at the end if no order specified

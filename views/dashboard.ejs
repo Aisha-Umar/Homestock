@@ -121,7 +121,7 @@
                                 <input type="checkbox" class="item-checkbox" data-id="<%= item._id %>" data-item="<%= item.item %>">
 
                                 <label class="item-details">
-                                    <span class="emoji"></span>
+                                    <span class="emoji"><%= item.emoji || "🛒" %></span>
                                     <%= item.item %>
                                 </label>
 

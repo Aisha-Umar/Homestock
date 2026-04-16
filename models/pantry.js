@@ -11,6 +11,10 @@ const pantrySchema = new mongoose.Schema({
         required:true,
         trim:true
     },
+    emoji: {
+        type: String,
+        default: "🛒"
+    },
     quantity: {
         type:Number,
         default:1

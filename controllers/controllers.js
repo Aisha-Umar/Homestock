@@ -3,6 +3,38 @@ const User = require("../models/user.js")
 const Pantry = require("../models/pantry.js")
 const { request } = require("express")
 
+// Emoji mapping for grocery items
+const groceryEmojiMap = {
+  milk: "🥛",
+  eggs: "🥚",
+  cheese: "🧀",
+  bread: "🍞",
+  rice: "🍚",
+  pasta: "🍝",
+  apples: "🍎",
+  bananas: "🍌",
+  tomatoes: "🍅",
+  onions: "🧅",
+  chicken: "🍗",
+  fish: "🐟",
+  cereal: "🥣",
+  "peanut butter": "🥜",
+  "cooking oil": "🫒",
+  "ice cream": "🍨",
+  pizza: "🍕",
+  "toilet paper": "🧻",
+  "dish soap": "🧼",
+  "whole milk": "🥛",
+  garlic: "🧄",
+  ginger: "🫚",
+  beef: "🥩"
+}
+
+// Helper function to get emoji for an item
+function getEmojiForItem(itemName) {
+  return groceryEmojiMap[itemName.toLowerCase()] || "🛒"
+}
+
 //Get landing page
 exports.getLanding = async(req, res) => {
   try{
@@ -49,7 +81,8 @@ const userId = req.user.id
 const { item,quantity,store,weeksLasting } = req.body;
 
   try {
-    let savedItem = await Grocery.create({ user:userId, item:item,quantity:quantity,store:store,weeksLasting:weeksLasting});
+    const emoji = getEmojiForItem(item);
+    let savedItem = await Grocery.create({ user:userId, item:item, emoji:emoji, quantity:quantity,store:store,weeksLasting:weeksLasting});
     res.json(savedItem)
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -135,6 +168,7 @@ exports.moveToPantry = async (req, res) => {
     const addedPantryItems = await Pantry.insertMany(
       items.map((item) => ({
         item: item.item,
+        emoji: item.emoji,
         quantity: item.quantity,
         weeksLasting:item.weeksLasting,
         user: item.user,
@@ -198,6 +232,7 @@ exports.moveToGrocery = async (req, res) => {
     const addedGroceryItems = await Grocery.insertMany(
       items.map((item) => ({
         item: item.item,
+        emoji: item.emoji,
         quantity: item.quantity,
         weeksLasting: item.weeksLasting,
         user: item.user,
