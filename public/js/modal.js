@@ -195,7 +195,11 @@ function renderNewListItem(newItem) {
   "ice cream": "🍨",
   pizza: "🍕",
   "toilet paper": "🧻",
-  "dish soap": "🧼"
+  "dish soap": "🧼",
+  "whole milk":"🥛",
+  garlic:"🧄",
+  ginger:"🫚",
+  beef:"🥩"
 }
 
 
