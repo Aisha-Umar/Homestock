@@ -124,7 +124,10 @@ form.addEventListener("submit", async (e) => {
       });
       if (!res.ok) throw new Error("Edit failed");
       const updatedItem = await res.json();
-      editingLi.querySelector(".item-details").innerText = updatedItem.item;
+      // Update only the text content, preserving the emoji span
+      const emojiSpan = editingLi.querySelector(".item-details .emoji");
+      const emoji = emojiSpan ? emojiSpan.textContent : "🛒";
+      editingLi.querySelector(".item-details").innerHTML = `<span class="emoji">${emoji}</span>${updatedItem.item}`;
       editingLi.dataset.item = updatedItem.item;
       editingLi.querySelector(".item-info").innerText = updatedItem.quantity;
     
@@ -176,7 +179,7 @@ function renderNewListItem(newItem) {
   
 li.innerHTML = `
     <input type="checkbox" class="item-checkbox" data-id="${newItem._id}">
-    <span class"emoji">${emoji}</span>
+    <span class="emoji">${emoji}</span>
     <label class="item-details">${newItem.item}</label>
     <span class="item-info">${newItem.quantity}</span>
     <i class="fas fa-pencil-alt edit-icon"></i>`;

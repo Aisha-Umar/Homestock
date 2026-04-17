@@ -16,7 +16,7 @@ exports.getLanding = async(req, res) => {
 // Get all items
 exports.getDashboard = async (req, res) => {
   try {
-  const storedItems = await Grocery.find().sort({ order: 1 }); // ascending order
+  const storedItems = await Grocery.find({ user: req.user.id }).sort({ order: 1 }); // ascending order, filtered by user
   await res.render('dashboard', {storedItems})
 } catch (err) {
     res.status(500).json({ message: err.message });
@@ -83,13 +83,59 @@ exports.editItem = async (req, res) => {
 
 // Delete an item
 exports.deleteItem = async (req, res) => {
-  const userId = req.user.id
-  const { ids } = req.body;
-  if (!Array.isArray(ids) || ids.length === 0) {
-    return res.status(400).json({ message: 'No items selected' });
+  try {
+    const userId = req.user.id;
+    const { ids, isPantry } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Not authenticated' });
+    }
+    
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'No items selected' });
+    }
+    
+    let result;
+    if (isPantry) {
+      console.log('Deleting pantry items:', { ids, userId });
+      result = await Pantry.deleteMany({ _id: { $in: ids }, user: userId });
+    } else {
+      console.log('Deleting grocery items:', { ids, userId });
+      result = await Grocery.deleteMany({ _id: { $in: ids }, user: userId });
+    }
+    
+    console.log('Delete result:', result);
+    
+    return res.status(200).json({ success: true, deletedCount: result.deletedCount });
+  } catch (err) {
+    console.error('Error deleting items:', err);
+    return res.status(500).json({ success: false, message: err.message || 'Failed to delete items' });
   }
-  await Grocery.deleteMany({ _id: { $in: ids }, user: userId                                                                                                                  });
-  res.json({ success: true });
+}
+
+// Delete pantry items
+exports.deletePantryItem = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { ids } = req.body;
+    
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Not authenticated' });
+    }
+    
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ success: false, message: 'No items selected' });
+    }
+    
+    console.log('Deleting pantry items:', { ids, userId });
+    const result = await Pantry.deleteMany({ _id: { $in: ids }, user: userId });
+    console.log('Delete pantry result:', result);
+    
+    return res.status(200).json({ success: true, deletedCount: result.deletedCount });
+  } catch (err) {
+    console.error('Error deleting pantry items:', err);
+    return res.status(500).json({ success: false, message: err.message || 'Failed to delete items' });
+  }
 }
 
 // Save order of items

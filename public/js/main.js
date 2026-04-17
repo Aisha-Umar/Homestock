@@ -158,24 +158,46 @@ document.getElementById('deleteSelectedBtn').addEventListener('click', async () 
 
   // Collect ids
   const ids = Array.from(checkedBoxes).map(cb => cb.dataset.id);
+  
+  // Determine if this is a pantry page
+  const currentUrl = window.location.pathname;
+  const isPantry = currentUrl.includes('/pantry') || currentUrl.includes('/finished');
+  
+  console.log('Current URL:', currentUrl);
+  console.log('Is Pantry:', isPantry);
+  console.log('Deleting IDs:', ids);
+  
   try {
     const res = await fetch('/api/deleteItem', {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      credentials:'same-origin',
-      body: JSON.stringify({ ids })
+      credentials: 'same-origin',
+      body: JSON.stringify({ ids, isPantry })
     });
-    console.log(ids)
-    if (!res.ok) throw new Error('Delete failed');
+    
+    console.log('Response status:', res.status);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    console.log('Response data:', data);
+    
+    if (!data.success) {
+      throw new Error(data.message || 'Delete failed');
+    }
 
     // Remove from DOM
     checkedBoxes.forEach(cb => {
       cb.closest('li').remove();
     });
+    
+    alert(`Successfully deleted ${data.deletedCount} item(s)`);
 
   } catch (err) {
-    console.error(err);
-    alert('Failed to delete items.');
+    console.error('Delete error:', err.message);
+    alert('Failed to delete items: ' + err.message);
   }
 });
 
