@@ -1,6 +1,6 @@
 # Homestock
 
-Homestock is a pantry and grocery management app built to solve real household frustrations, knowing what you have, what you're running low on, and what to buy next.
+Homestock is a pantry and grocery management app built to solve real household frustrations, knowing what you have, what you're running low on, what to buy next, spend less time trying to remember what's in the pantry and avoid unnecessary grocery tips.
 
 ## Features
 
@@ -9,6 +9,16 @@ Homestock is a pantry and grocery management app built to solve real household f
 - **Grocery lists** — drag-and-drop lists, sortable by store
 - **AI recipe suggestions** — Ollama-powered recipe recommendations based on your pantry contents
 - **Family sharing** — share pantry and grocery data with household members
+
+## How It Works
+
+HomeStock keeps track of pantry items along with information such as when an item was added and how long it typically lasts.
+
+The shopping list can be organized by store and arranged in the order you want to shop. This makes grocery shopping much easier because you can work through your list as you move through the store instead of constantly searching through a long, unsorted list.
+
+The app also uses item information to estimate when an item may be running low, helping users keep their shopping list up to date and avoid running out of frequently used items.
+
+Users can also generate recipe suggestions based on the ingredients they already have, making it easier to decide what to cook without making another trip to the grocery store.
 
 ## Tech Stack
 
