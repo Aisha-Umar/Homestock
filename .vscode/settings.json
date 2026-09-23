@@ -3,5 +3,6 @@
         "commands": "on",
         "arguments": "on",
         "unknown": "off"
-    }
+    },
+    "liveServer.settings.port": 5501
 }
